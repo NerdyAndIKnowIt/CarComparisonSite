@@ -7,7 +7,7 @@ on:
       - prod
 
 jobs:
-  lint:
+  test:
     if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
 
@@ -18,10 +18,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Install angular
+        run: npm install -g @angular/cli
 
       - name: Run linter
         run: ng test --watch=false --browsers=ChromeHeadless
@@ -37,11 +40,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Install angular
+        run: npm install -g @angular/cli
+        
       - name: Build Angular app
         run: npm run build -- --configuration production
 

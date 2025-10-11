@@ -55,6 +55,7 @@ jobs:
         uses: aws-actions/s3-sync@v1
         with:
           args: --delete
+          source-dir: ./home/runner/work/CarComparisonSite/CarComparisonSite/dist/CarComparisonSite
         env:
           AWS_S3_BUCKET: thatvsthis.net
           AWS_REGION: us-east-1

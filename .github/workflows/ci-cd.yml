@@ -51,8 +51,8 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production
 
-      - name: Deploy to S3
-        uses: aws-actions/s3-sync@v1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           args: --delete
           source-dir: ./home/runner/work/CarComparisonSite/CarComparisonSite/dist/CarComparisonSite

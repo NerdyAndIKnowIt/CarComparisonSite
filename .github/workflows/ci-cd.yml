@@ -59,4 +59,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Sync to S3
-        run: aws s3 sync /home/runner/work/CarComparisonSite/CarComparisonSite/dist/CarComparisonSite s3://thatvsthis.net --delete
+        run: aws s3 sync /home/runner/work/CarComparisonSite/CarComparisonSite/browser s3://thatvsthis.net --delete

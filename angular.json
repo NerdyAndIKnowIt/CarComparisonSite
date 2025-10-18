@@ -31,7 +31,8 @@
             "outputMode": "static",
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "outputPath": "browser"
           },
           "configurations": {
             "production": {
@@ -90,6 +91,9 @@
               "src/styles.css"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@jefiozie/ngx-aws-deploy:deploy"
         }
       }
     }

@@ -7,7 +7,7 @@ import { Car } from '../car-api-service/car';
   providedIn: 'root',
 })
 export class CarApi {
-  private apiUrl = 'https://0j8pu88ffd.execute-api.us-east-1.amazonaws.com/prod/cars';
+  private apiUrl = 'https://l4gos4wmf4.execute-api.us-east-1.amazonaws.com/prod/cars';
 
   constructor(private http: HttpClient) {}
 

@@ -1,0 +1,71 @@
+<h2>That vs This</h2>
+
+<div class="compare-container">
+
+  <!-- CAR 1 -->
+  <div class="car-select">
+    <h3>Car 1</h3>
+
+    <select [(ngModel)]="selectedMake1">
+      <option value="">Select Make</option>
+      <option *ngFor="let make of makes" [value]="make">{{make}}</option>
+    </select>
+
+    <button (click)="loadModels(1)">Load Models</button>
+
+    <select [(ngModel)]="selectedModel1">
+      <option value="">Select Model</option>
+      <option *ngFor="let model of modelsCar1" [value]="model">{{model}}</option>
+    </select>
+
+    <button (click)="loadCar(1)">Select Car</button>
+  </div>
+
+  <!-- CAR 2 -->
+  <div class="car-select">
+    <h3>Car 2</h3>
+
+    <select [(ngModel)]="selectedMake2">
+      <option value="">Select Make</option>
+      <option *ngFor="let make of makes" [value]="make">{{make}}</option>
+    </select>
+
+    <button (click)="loadModels(2)">Load Models</button>
+
+    <select [(ngModel)]="selectedModel2">
+      <option value="">Select Model</option>
+      <option *ngFor="let model of modelsCar2" [value]="model">{{model}}</option>
+    </select>
+
+    <button (click)="loadCar(2)">Select Car</button>
+  </div>
+
+</div>
+
+<hr>
+
+<div class="compare-results" *ngIf="car1 && car2">
+
+  <div class="car-card">
+    <h3>{{car1.Make}} {{car1.Model}}</h3>
+    <p>Engine: {{car1.Engine}}</p>
+    <p>Horsepower: {{car1.Horsepower}}</p>
+    <p>Powertrain: {{car1.Powertrain}}</p>
+    <p>Transmission: {{car1.Transmission}}</p>
+    <p>Weight: {{car1.Weight}}</p>
+    <p>Years: {{car1.YearStart}} - {{car1.YearEnd}}</p>
+    <p>0-60: {{car1.ZeroToSixty}}</p>
+  </div>
+
+  <div class="car-card">
+    <h3>{{car2.Make}} {{car2.Model}}</h3>
+    <p>Engine: {{car2.Engine}}</p>
+    <p>Horsepower: {{car2.Horsepower}}</p>
+    <p>Powertrain: {{car2.Powertrain}}</p>
+    <p>Transmission: {{car2.Transmission}}</p>
+    <p>Weight: {{car2.Weight}}</p>
+    <p>Years: {{car2.YearStart}} - {{car2.YearEnd}}</p>
+    <p>0-60: {{car2.ZeroToSixty}}</p>
+  </div>
+
+</div>

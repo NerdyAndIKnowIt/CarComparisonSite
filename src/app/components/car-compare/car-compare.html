@@ -1,71 +1,78 @@
-<h2>That vs This</h2>
+
 
 <div class="compare-container">
 
   <!-- CAR 1 -->
   <div class="car-select">
-    <h3>Car 1</h3>
+    <span class="car-label">that</span>
 
-    <select [(ngModel)]="selectedMake1">
-      <option value="">Select Make</option>
+    <select [(ngModel)]="selectedMake1" (ngModelChange)="onMakeChange(1)">
       <option *ngFor="let make of makes" [value]="make">{{make}}</option>
     </select>
 
-    <button (click)="loadModels(1)">Load Models</button>
-
     <select [(ngModel)]="selectedModel1">
-      <option value="">Select Model</option>
       <option *ngFor="let model of modelsCar1" [value]="model">{{model}}</option>
     </select>
-
-    <button (click)="loadCar(1)">Select Car</button>
   </div>
+
+  <!-- VS IMAGE -->
+  <img class="vs-image" src="/pictures/resized/VSResized.png" alt="versus">
 
   <!-- CAR 2 -->
   <div class="car-select">
-    <h3>Car 2</h3>
+    <span class="car-label">this</span>
 
-    <select [(ngModel)]="selectedMake2">
-      <option value="">Select Make</option>
+    <select [(ngModel)]="selectedMake2" (ngModelChange)="onMakeChange(2)">
       <option *ngFor="let make of makes" [value]="make">{{make}}</option>
     </select>
 
-    <button (click)="loadModels(2)">Load Models</button>
-
     <select [(ngModel)]="selectedModel2">
-      <option value="">Select Model</option>
       <option *ngFor="let model of modelsCar2" [value]="model">{{model}}</option>
     </select>
+  </div>
 
-    <button (click)="loadCar(2)">Select Car</button>
+  <div class="compare-actions">
+    <button class="go-button" (click)="compareCars()" [disabled]="!canCompare()"
+            aria-label="Select Car"></button>
   </div>
 
 </div>
 
-<hr>
+<div class="car-images" *ngIf="car1 && car2">
+  <img class="car-image car-image-1" [src]="carImageDay(car1)"
+       [alt]="car1.Make + ' ' + car1.Model">
+  <img class="car-image car-image-2" [src]="carImageNight(car2)"
+       [alt]="car2.Make + ' ' + car2.Model">
+</div>
+<!-- Three-column comparison card: car 1 | stat name | car 2 -->
+<div class="stat-compare-card" *ngIf="car1 && car2">
 
-<div class="compare-results" *ngIf="car1 && car2">
+  <div class="stat-value">{{car1.Engine}}</div>
+  <div class="stat-name">Engine</div>
+  <div class="stat-value">{{car2.Engine}}</div>
 
-  <div class="car-card">
-    <h3>{{car1.Make}} {{car1.Model}}</h3>
-    <p>Engine: {{car1.Engine}}</p>
-    <p>Horsepower: {{car1.Horsepower}}</p>
-    <p>Powertrain: {{car1.Powertrain}}</p>
-    <p>Transmission: {{car1.Transmission}}</p>
-    <p>Weight: {{car1.Weight}}</p>
-    <p>Years: {{car1.YearStart}} - {{car1.YearEnd}}</p>
-    <p>0-60: {{car1.ZeroToSixty}}</p>
-  </div>
+  <div class="stat-value">{{car1.Horsepower}}</div>
+  <div class="stat-name">Horsepower</div>
+  <div class="stat-value">{{car2.Horsepower}}</div>
 
-  <div class="car-card">
-    <h3>{{car2.Make}} {{car2.Model}}</h3>
-    <p>Engine: {{car2.Engine}}</p>
-    <p>Horsepower: {{car2.Horsepower}}</p>
-    <p>Powertrain: {{car2.Powertrain}}</p>
-    <p>Transmission: {{car2.Transmission}}</p>
-    <p>Weight: {{car2.Weight}}</p>
-    <p>Years: {{car2.YearStart}} - {{car2.YearEnd}}</p>
-    <p>0-60: {{car2.ZeroToSixty}}</p>
-  </div>
+  <div class="stat-value">{{car1.Powertrain}}</div>
+  <div class="stat-name">Powertrain</div>
+  <div class="stat-value">{{car2.Powertrain}}</div>
+
+  <div class="stat-value">{{car1.Transmission}}</div>
+  <div class="stat-name">Transmission</div>
+  <div class="stat-value">{{car2.Transmission}}</div>
+
+  <div class="stat-value">{{car1.Weight}}</div>
+  <div class="stat-name">Weight</div>
+  <div class="stat-value">{{car2.Weight}}</div>
+
+  <div class="stat-value">{{car1.YearStart}} - {{car1.YearEnd}}</div>
+  <div class="stat-name">Years</div>
+  <div class="stat-value">{{car2.YearStart}} - {{car2.YearEnd}}</div>
+
+  <div class="stat-value">{{car1.ZeroToSixty}}</div>
+  <div class="stat-name">0-60</div>
+  <div class="stat-value">{{car2.ZeroToSixty}}</div>
 
 </div>

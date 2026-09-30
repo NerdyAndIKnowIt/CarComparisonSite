@@ -22,6 +22,16 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/app/pictures",
+                "output": "pictures"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/app/nfs",
+                "output": "nfs"
               }
             ],
             "styles": [
@@ -79,6 +89,16 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/app/pictures",
+                "output": "pictures"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/app/nfs",
+                "output": "nfs"
               }
             ],
             "styles": [

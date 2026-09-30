@@ -48,9 +48,20 @@ export class CarCompareComponent implements OnInit {
     });
   }
 
-  // When user clicks load models
-  loadModels(carNumber: number): void {
+  // When user selects a make, auto-load its models and reset downstream state
+  onMakeChange(carNumber: number): void {
     const make = carNumber === 1 ? this.selectedMake1 : this.selectedMake2;
+
+    // Reset downstream selections for this car
+    if (carNumber === 1) {
+      this.selectedModel1 = '';
+      this.modelsCar1 = [];
+      this.car1 = undefined;
+    } else {
+      this.selectedModel2 = '';
+      this.modelsCar2 = [];
+      this.car2 = undefined;
+    }
 
     if (!make) return;
 
@@ -60,15 +71,41 @@ export class CarCompareComponent implements OnInit {
 
       if (carNumber === 1) {
         this.modelsCar1 = models;
-        this.car1 = undefined;
       } else {
         this.modelsCar2 = models;
-        this.car2 = undefined;
       }
     });
   }
 
-  // When user clicks compare
+  // Enable compare only when both makes and both models are selected
+  canCompare(): boolean {
+    return !!this.selectedMake1 && !!this.selectedModel1
+      && !!this.selectedMake2 && !!this.selectedModel2;
+  }
+
+  // When user clicks the single compare button, load both cars
+  compareCars(): void {
+    if (!this.canCompare()) return;
+    this.loadCar(1);
+    this.loadCar(2);
+  }
+
+  // Build the Day resized image URL, e.g. /pictures/resized/BugattiChironDayResized.png
+  carImageDay(car: Car): string {
+    return `/pictures/resized/${this.imageKey(car)}DayResized.png`;
+  }
+
+  // Build the Night resized image URL, e.g. /pictures/resized/BugattiChironNightResized.png
+  carImageNight(car: Car): string {
+    return `/pictures/resized/${this.imageKey(car)}NightResized.png`;
+  }
+
+  // Strip spaces from make + model to match the resized file naming
+  private imageKey(car: Car): string {
+    return `${car.Make.replace(/\s+/g, '')}${car.Model.replace(/\s+/g, '')}`;
+  }
+
+  // Fetch a single car's details from the API
   loadCar(carNumber: number): void {
     const make  = carNumber === 1 ? this.selectedMake1  : this.selectedMake2;
     const model = carNumber === 1 ? this.selectedModel1 : this.selectedModel2;

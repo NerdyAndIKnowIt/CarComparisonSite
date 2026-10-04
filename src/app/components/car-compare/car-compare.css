@@ -84,7 +84,7 @@
 }
 
 /* Selected car images, side by side with overlap.
-   Negative top margin pulls them up so the container overlaps them by 20px. */
+   Negative top margin pulls them up so the container overlaps them (non-mobile only). */
 .car-images {
   display: flex;
   justify-content: center;
@@ -105,51 +105,6 @@
   z-index: 2;
 }
 
-/* Mobile: stack the selectors and VS image vertically; shrink the car images */
-@media (max-width: 600px) {
-  /* Vertical stack: "that" row, VS image, "this" row, button.
-     Drop the frame image and fixed aspect ratio on mobile. */
-  .compare-container {
-    flex-direction: column;
-    background-image: none;
-    aspect-ratio: auto;
-    max-width: 100%;
-    padding: 0;
-  }
-
-  .car-images {
-    margin-top: 20px;
-  }
-
-  .car-image {
-    height: 200px;
-    max-height: 200px;
-  }
-
-  /* Overlap kept at the same proportion as desktop (272/1000 = 27.2% of 200px) */
-  .car-image-2 {
-    margin-left: -54px;
-  }
-
-  /* Dropdowns: allow selects to shrink to fit narrow screens, keep off edges */
-  .car-select {
-    gap: 8px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 16px;
-  }
-
-  .car-select select {
-    min-width: 0;
-    flex: 1;
-  }
-
-  /* Shrink the Go button on mobile */
-  .go-button {
-    width: 120px;
-    height: 50px;
-  }
-}
 
 /* Laptop screens: shrink the car images from the full-desktop size */
 @media (min-width: 601px) and (max-width: 1440px) {
@@ -162,6 +117,11 @@
   .car-image-2 {
     margin-left: -168px;
   }
+
+  /* Tighter column gap on laptop-and-under screens */
+  .stat-compare-card {
+    gap: 10px 8px;
+  }
 }
 
 /* Three-column comparison card: car 1 value | stat name | car 2 value */
@@ -172,7 +132,8 @@
   align-items: center;
   width: 100%;
   max-width: 900px;
-  max-height: 400px;
+  /* No fixed height: let the card grow to fit its content so the
+     100% x 100% background frame always wraps all the text */
   /* Raise the card to overlap the car images above by 20px */
   margin: -50px auto 0;
   position: relative;
@@ -222,4 +183,87 @@
 
 .stat-value:nth-child(3n) {
   text-align: right;
+  padding-right: 20px;
 }
+
+
+/* Mobile: stack the selectors and VS image vertically; shrink the car images */
+@media (max-width: 600px) {
+  /* Vertical stack: "that" row, VS image, "this" row, button.
+     Drop the frame image and fixed aspect ratio on mobile. */
+  .compare-container {
+    flex-direction: column;
+    background-image: none;
+    aspect-ratio: auto;
+    max-width: 100%;
+    padding: 0;
+    /* Don't lift the select container over the car images on mobile */
+    position: static;
+    z-index: auto;
+  }
+
+  .car-images {
+    margin-top: 20px;
+  }
+
+  .car-image {
+    height: 200px;
+    max-height: 200px;
+  }
+
+  /* Overlap kept at the same proportion as desktop (272/1000 = 27.2% of 200px) */
+  .car-image-2 {
+    margin-left: -54px;
+  }
+
+  /* Dropdowns: allow selects to shrink to fit narrow screens, keep off edges */
+  .car-select {
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 16px;
+  }
+
+  .car-select select {
+    min-width: 0;
+    flex: 1;
+  }
+
+  /* Wrap the Go button in a ComparisonContainer.png frame on mobile only */
+  .compare-actions {
+    width: 100%;
+    box-sizing: border-box;
+    background-image: url('/pictures/resized/ComparisonContainer.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Padding keeps the button inside the visible frame area */
+    padding: 8% 12%;
+  }
+
+  /* Shrink the Go button on mobile */
+  .go-button {
+    width: 120px;
+    height: 50px;
+  }
+
+  /* Comparison card: don't overlap the images, add a gap, shrink the text */
+  .stat-compare-card {
+    margin: 20px auto 0;
+    max-height: none;
+    gap: 6px 8px;
+  }
+
+  .stat-header {
+    font-size: 14px;
+  }
+
+  .stat-name {
+    font-size: 12px;
+  }
+
+  .stat-value {
+    font-size: 12px;
+  }
+}
+
